@@ -9,8 +9,13 @@ build/ramsey_experiment: src/ramsey.cpp Makefile
 	$(CXX) $(CXXFLAGS) $< -o $@
 	printf '%s\n' '$(CXX) $(CXXFLAGS) src/ramsey.cpp -o build/ramsey_experiment' > build/build_command.txt
 
-test: all
+test: all build/ramsey_no_pruning
 	python3 tests/test_experiment.py build/ramsey_experiment
+	python3 -m unittest discover -s tests -p 'test_statistics.py'
+
+build/ramsey_no_pruning: src/ramsey.cpp Makefile
+	mkdir -p build
+	$(CXX) $(CXXFLAGS) -DRAMSEY_NO_CARDINALITY_PRUNING $< -o $@
 
 benchmark: all
 	python3 scripts/benchmark.py
