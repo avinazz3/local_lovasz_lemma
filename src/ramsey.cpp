@@ -113,10 +113,14 @@ bool bitset_extend(const Graph& g, int k, int colour, Clique& s, uint64_t option
     ++c.prefixes;
     budget.tick();
     if (int(s.size()) == k) { answer = s; return true; }
+#ifndef RAMSEY_NO_CARDINALITY_PRUNING
     const int need = k - int(s.size());
     if (__builtin_popcountll(options) < need) return false;
+#endif
     while (options) {
+#ifndef RAMSEY_NO_CARDINALITY_PRUNING
         if (__builtin_popcountll(options) < need) break;
+#endif
         budget.tick();
         ++c.candidates;
         const int v = __builtin_ctzll(options);

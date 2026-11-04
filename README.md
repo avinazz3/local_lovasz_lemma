@@ -81,6 +81,22 @@ Recheck the saved certificates and pairing without rerunning the benchmark:
 python3 scripts/verify_results.py results/baseline/raw.json
 ```
 
+## Expanded statistical study
+
+The larger [results/expanded](results/expanded) study uses **100 new seeds for each of 12 instances**, instead of the five-seed, nine-instance pilot. It includes 3,600 constructions, 7,200 snapshot searches, and 200 controlled pruning-ablation searches. All completed certificates and the exact snapshot-to-construction pairing are independently checked. The two extra ablation datasets disable only the bitset candidate-count tests on the same final graphs.
+
+```sh
+make test
+python3 scripts/expanded_experiment.py --trials 100 --bootstrap 2000 --output results/local/expanded
+python3 scripts/verify_results.py results/expanded/raw.json.gz
+```
+
+The expanded runner builds on the same C++ solver. It shuffles all instance/seed triplets, randomizes method order within each triplet, performs excluded warm-ups, and pins itself and subprocesses to one permitted CPU where the operating system supports it. The default limits are five seconds and 100,000 repairs per invocation. Three extra cases are `(16,5)`, `(24,6)`, and `(32,7)`. Measured seeds `20270000` through `20270099` are disjoint from the pilot seeds; each case has 100 sampling units. Do not pool methods, phases, or different cases as if they were independent repetitions of the same experiment.
+
+`statistics.json` includes means, medians, all tied repeated modes with their frequencies, sample standard deviations, quartiles, IQRs, ranges, 95th percentiles, and approximate bootstrap intervals. `summary.csv`, `repairs.csv`, and `paired_speedups.csv` expose the same analysis as tables. Runtime modes can reflect timer quantization, so the report interprets modes for discrete repair counts instead. When all values occur once, the mode list is empty and means **no repeated empirical mode**, not a numerical mode of zero.
+
+The 95% intervals use 2,000 seeded percentile-bootstrap resamples. For speedups, one ratio is calculated per paired seed, then those paired observations are resampled. Intervals are pointwise and describe variability in this environment, not performance across machines. Capped runs remain explicit and are excluded only from completed-run statistics. `raw.json.gz` preserves all graphs and measurements in compressed JSON; `verify_results.py` reads it directly. The original pilot remains unchanged in `results/baseline`.
+
 ## Run one solver or replay a graph
 
 ```sh

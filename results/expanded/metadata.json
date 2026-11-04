@@ -1,0 +1,89 @@
+{
+  "complete": true,
+  "utc_timestamp": "2026-11-04T10:28:17.117505+00:00",
+  "cases": [
+    [
+      4,
+      4
+    ],
+    [
+      7,
+      5
+    ],
+    [
+      13,
+      6
+    ],
+    [
+      22,
+      7
+    ],
+    [
+      36,
+      8
+    ],
+    [
+      5,
+      3
+    ],
+    [
+      12,
+      4
+    ],
+    [
+      16,
+      5
+    ],
+    [
+      20,
+      5
+    ],
+    [
+      24,
+      6
+    ],
+    [
+      28,
+      6
+    ],
+    [
+      32,
+      7
+    ]
+  ],
+  "trials": 100,
+  "seed": 20270000,
+  "seconds": 5.0,
+  "max_resamplings": 100000,
+  "skip_snapshots": false,
+  "bootstrap_repetitions": 2000,
+  "affinity_cpu": 0,
+  "ablation_cases": [
+    [
+      36,
+      8
+    ],
+    [
+      28,
+      6
+    ]
+  ],
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+  "build_command": "g++ -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic src/ramsey.cpp -o build/ramsey_experiment",
+  "executable_sha256": "5a645718d30c609c54158924c56beca55b774ed98bebe4547dfae2236aa52153",
+  "ablation_executable_sha256": "b1de1354e1030456e48f270af654a62789683150ed29c277bc6933f4e294bff9",
+  "source_sha256": {
+    "src/ramsey.cpp": "172f5c95b3dd1de6393559615c3ff8a9c11ddc1c6b70d8b279593134598fc0c2",
+    "Makefile": "8fa491a344e354c1b6ba4c93c496cef8c24fe2696d3356cfb568d70f045b1b9c",
+    "scripts/benchmark.py": "725260240f25f2e0ca9a5836b3d2890d8a36255f661b153924f63eb16259081b",
+    "scripts/expanded_experiment.py": "17051edee8eb6498c42b422e2b4c24fcebe6d33642738d229f32bcc85abaff1a",
+    "scripts/experiment_statistics.py": "8bf339150d93d837f370cb714d27d5c69163bac2bb9a1cc6f27248db4b7354e1",
+    "scripts/verify_results.py": "426a2a54d484afc6a7e73f874cb20d741092d19028501707323be9252aeecfd3"
+  },
+  "schedule": "all instance/seed triplets shuffled; fresh randomized method order per triplet",
+  "ablation": "candidate-count pruning disabled; measured on final (28,6) and (36,8) graphs",
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "warmup_invocations": 36
+}

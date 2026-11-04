@@ -2,6 +2,7 @@
 """Reproducible paired Ramsey experiments; Python standard library only."""
 import argparse
 import csv
+import gzip
 import hashlib
 import itertools
 import json
@@ -23,6 +24,12 @@ PRESETS = {
     "report": [(4, 4), (7, 5), (13, 6), (22, 7), (36, 8),
                (5, 3), (12, 4), (20, 5), (28, 6)],
 }
+
+
+def load_results(path):
+    opener = gzip.open if str(path).endswith('.gz') else open
+    with opener(path, 'rt') as stream:
+        return json.load(stream)
 
 
 def graph_from_bits(n, bits):
@@ -256,7 +263,8 @@ def main(argv=None):
                     source_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                                    for p in tracked_sources},
                     cases=cases, trials=args.trials, seed=args.seed, seconds=args.seconds,
-                    max_resamplings=args.max_resamplings, method_order="shuffled deterministically per trial",
+                    max_resamplings=args.max_resamplings, skip_snapshots=args.skip_snapshots,
+                    method_order="shuffled deterministically per trial",
                     timings="steady_clock inside C++; excludes process startup and independent verification")
     cpuinfo = Path("/proc/cpuinfo")
     if cpuinfo.exists():
