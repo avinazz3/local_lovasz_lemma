@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.16)
+project(local_lovasz_lemma LANGUAGES CXX)
+add_executable(ramsey_experiment src/ramsey.cpp)
+target_compile_features(ramsey_experiment PRIVATE cxx_std_17)
+target_compile_options(ramsey_experiment PRIVATE -Wall -Wextra -Wpedantic)
+enable_testing()
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
+add_test(NAME correctness COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/test_experiment.py $<TARGET_FILE:ramsey_experiment>)
