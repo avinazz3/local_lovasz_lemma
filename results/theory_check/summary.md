@@ -112,4 +112,6 @@ In `m2_visited.csv`, the size columns are filled for the without-test build up t
 
 ## Wall-clock time
 
-The check script used **3.344 seconds** through compilation, repair replay, counting, validation and CSV writing. This is elapsed time for the measurement job. It excludes preparation of the repository and writing this summary. The existing timing benchmark was not run, and no stored timing was changed.
+The check script used **3.344 seconds** through compilation, repair replay, counting, validation and CSV writing. This excludes repository preparation and writing this summary. The script performed count-only measurements and left all stored timings intact.
+
+Publishing the branch triggered GitHub Actions' existing smoke benchmark. The smoke step succeeded and wrote to `results/local/ci` on the CI runner. All 26 original repository blobs, including the expanded timing data and timing code, matched the reference commit byte for byte. [CI run](https://github.com/avinazz3/local_lovasz_lemma/actions/runs/43253821261)
